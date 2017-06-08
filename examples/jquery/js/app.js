@@ -70,7 +70,6 @@ jQuery(function ($) {
 			$('#toggle-all').prop('checked', this.getActiveTodos().length === 0);
 			this.renderFooter();
 			$('#new-todo').focus();
-			util.store('todos-jquery', this.todos);
 		},
 		renderFooter: function () {
 			var todoCount = this.todos.length;
@@ -84,6 +83,9 @@ jQuery(function ($) {
 
 			$('#footer').toggle(todoCount > 0).html(template);
 		},
+		storeTodos: function () {
+			util.store('todos-jquery', this.todos);
+		},
 		toggleAll: function (e) {
 			var isChecked = $(e.target).prop('checked');
 
@@ -92,6 +94,7 @@ jQuery(function ($) {
 			});
 
 			this.render();
+			this.storeTodos();
 		},
 		getActiveTodos: function () {
 			return this.todos.filter(function (todo) {
@@ -149,11 +152,13 @@ jQuery(function ($) {
 			$input.val('');
 
 			this.render();
+			this.storeTodos();
 		},
 		toggle: function (e) {
 			var i = this.indexFromEl(e.target);
 			this.todos[i].completed = !this.todos[i].completed;
 			this.render();
+			this.storeTodos();
 		},
 		edit: function (e) {
 			var $input = $(e.target).closest('li').addClass('editing').find('.edit');
@@ -185,10 +190,12 @@ jQuery(function ($) {
 			}
 
 			this.render();
+			this.storeTodos();
 		},
 		destroy: function (e) {
 			this.todos.splice(this.indexFromEl(e.target), 1);
 			this.render();
+			this.storeTodos();
 		}
 	};
 
