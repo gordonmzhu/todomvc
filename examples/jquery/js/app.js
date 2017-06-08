@@ -49,7 +49,6 @@ jQuery(function ($) {
 				'/:filter': function (filter) {
 					this.filter = filter;
 					this.render();
-					this.storeTodos();
 				}.bind(this)
 			}).init('/all');
 		},
@@ -122,7 +121,6 @@ jQuery(function ($) {
 			this.todos = this.getActiveTodos();
 			this.filter = 'all';
 			this.render();
-			this.storeTodos();
 		},
 		// accepts an element from inside the `.item` div and
 		// returns the corresponding index in the `todos` array
